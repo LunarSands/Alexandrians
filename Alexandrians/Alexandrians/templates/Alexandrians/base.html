@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% load static %}
+<link rel="stylesheet" type="text/css" href= "{% static 'styles.css' %}">
+
+<html>
+    <head>
+        <title>
+            GU Alexandrians - 
+            {% block title_block %}
+            {% endblock %}
+        </title>
+    </head>
+    <body>
+        {% include 'Alexandrians/nav.html' %}
+        {% block body_block %}
+        {% endblock %}
+    </body>   
+
+</html>
