@@ -28,6 +28,11 @@ STATICFILES_DIRS = [STATIC_DIR, ]
 
 LOGIN_URL = '/alexandrians/sign-in'
 
+#Read environment
+env = environ.Env()
+env.read_env(os.path.join(BASE_DIR, '.env'))
+BOARD_TOKENS = env.list('BOARD_TOKENS')
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 

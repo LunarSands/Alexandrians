@@ -2,8 +2,8 @@ from django.shortcuts import render,redirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-
 from django.contrib.auth.models import Group
+from django.conf import settings
 
 from Alexandrians.forms import *
 
@@ -64,9 +64,10 @@ def admin_accounts(request):
 
     if request.method == 'POST':
         user_form = BoardForm(request.POST)
-        key = request.POST.dict().get('key')
+        key = request.POST.get('key')
+        tokens = settings.BOARD_TOKENS
 
-        if user_form.is_valid() and key in board_tokens:
+        if user_form.is_valid() and key in tokens:
             user = user_form.save()
             user.set_password(user.password)
             user.save()
@@ -79,7 +80,7 @@ def admin_accounts(request):
         else:
             context['errors'] = user_form.errors
 
-            if not key in board_tokens:
+            if not key in tokens:
                 user_form.add_error('key', 'Invalid key')
     
     else:
